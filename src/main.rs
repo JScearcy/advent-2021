@@ -1,34 +1,20 @@
-use chrono::Utc;
-use handler::SolutionHandler;
-
 mod cli;
-mod day1;
-mod day2;
-mod day3;
-mod day4;
-mod day5;
-mod day6;
-mod day7;
-mod day8;
 mod generate;
 mod handler;
 mod load_input;
+mod year2021;
 
-use crate::day1::Day1Handler;
-use crate::day2::Day2Handler;
-use crate::day3::Day3Handler;
-use crate::day4::Day4Handler;
-use crate::day5::Day5Handler;
-use crate::day6::Day6Handler;
-use crate::day7::Day7Handler;
-use crate::day8::Day8Handler;
+use handler::SolutionHandler;
+use year2021::prelude::*;
+
 
 #[tokio::main]
 async fn main() {
     let matches = cli::init();
     let day = matches.value_of("day").unwrap();
+    let year = matches.value_of("year").unwrap_or("2021");
     if matches.is_present("generate") {
-        match generate::generate_day(day) {
+        match generate::generate_day(day, year) {
             Ok(()) => {},
             Err(e) => println!("{:?}", e)
         }
@@ -37,7 +23,7 @@ async fn main() {
     let challenge = matches.value_of("challenge").unwrap();
     let allow_remote = matches.is_present("remote");
     let session = matches.value_of("session").unwrap_or("");
-    let raw_input = load_input::load(day, session, allow_remote, None).await.unwrap();
+    let raw_input = load_input::load(day, year, session, allow_remote, None).await.unwrap();
 
     let mut solution_handler = SolutionHandler::new();
     let handlers = vec![
@@ -53,16 +39,17 @@ async fn main() {
     
     solution_handler.register(handlers);
 
-    let perf_start_time = Utc::now().time();
-    let res = solution_handler.solve(day, challenge, &raw_input);
-    let perf_end_time = Utc::now().time();
-    let diff = perf_end_time - perf_start_time;
+    let (duration, res) = solution_handler.solve(day, challenge, &raw_input);
 
     match res {
         Ok(text) => println!("Day {} challenge {} result: {}", day, challenge, text),
         Err(e) => println!("Error running solution: {:?}", e),
     };
 
-    let display_time = if diff.num_milliseconds() > 0 { diff.num_milliseconds() as f64 } else { diff.num_microseconds().unwrap() as f64 / 1000. };
+    let display_time = if duration.num_milliseconds() > 0 {
+        duration.num_milliseconds() as f64
+    } else {
+        duration.num_microseconds().unwrap() as f64 / 1000.
+    };
     println!("Took {} ms to solve", display_time);
 }

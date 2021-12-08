@@ -16,9 +16,9 @@ impl From<reqwest::Error> for LoadError {
 }
 
 
-pub async fn load<'a>(day_num: &str, session: &str, allow_remote: bool, base_path_opt: Option<&str>) -> Result<String, Vec<LoadError>> {
+pub async fn load<'a>(day_num: &str, year: &str, session: &str, allow_remote: bool, base_path_opt: Option<&str>) -> Result<String, Vec<LoadError>> {
     let base_path = base_path_opt.unwrap_or("./src");
-    let path: PathBuf = [base_path, &format!("day{}", day_num), "input"].iter().collect();
+    let path: PathBuf = [base_path, &format!("year{}", year), &format!("day{}", day_num), "input"].iter().collect();
     let local_read = load_local(&path).await;
     if let Ok(text) = local_read {
         return Ok(text);

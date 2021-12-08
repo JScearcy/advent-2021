@@ -1,5 +1,7 @@
 use std::{fmt::Display, collections::HashMap};
 
+use chrono::{Utc, Duration};
+
 #[derive(Debug)]
 pub struct SolveError(pub String);
 
@@ -42,12 +44,18 @@ impl<'a, InputType> SolutionHandler<'a, InputType> {
         }
     }
 
-    pub fn solve(&self, day: &str, problem: &str, input: InputType) -> Result<String, SolveError> {
+    pub fn solve(&self, day: &str, problem: &str, input: InputType) -> (Duration, Result<String, SolveError>) {
         let handler_opt = self.handlers.get(day);
         if let Some(handler) = handler_opt {
-            return handler.solve(problem, input);
+            let perf_start_time = Utc::now().time();
+            let solution = handler.solve(problem, input);
+            let perf_end_time = Utc::now().time();
+            let diff = perf_end_time - perf_start_time;
+
+            (diff, solution)
+        } else {
+            (Duration::milliseconds(1), Err(SolveError(format!("NotFound: day {}, problem {}", day, problem))))
         }
-        Err(SolveError(format!("NotFound: day {}, problem {}", day, problem)))
     }
 }
 

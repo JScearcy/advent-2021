@@ -8,6 +8,7 @@ pub fn init<'a>() -> clap::ArgMatches<'a> {
         .arg(Arg::with_name("input").short("i").long("input").takes_value(true).help("path to input to read"))
         .arg(Arg::with_name("session").short("s").long("session").takes_value(true).help("session information if getting data remotely"))
         .arg(Arg::with_name("remote").short("r").long("remote").help("flag to allow remote input fetch").requires("session"))
+        .arg(Arg::with_name("year").short("y").long("year").help("run challenge from a specific year"))
         .version("1.0.0")
         .get_matches()
 }

@@ -157,22 +157,41 @@ impl<'a> AdventSolution<&str> for Day4Handler {
 
 #[cfg(test)]
 mod tests {
-    use crate::{load_input::load, handler::AdventSolution};
+    use crate::handler::AdventSolution;
     use super::Day4Handler;
+    fn get_input<'a>() -> &'a str {
+        "7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
+
+22 13 17 11  0
+ 8  2 23  4 24
+21  9 14 16  7
+ 6 10  3 18  5
+ 1 12 20 15 19
+
+ 3 15  0  2 22
+ 9 18 13 17  5
+19  8  7 25 23
+20 11 10 24  4
+14 21 16 12  6
+
+14 21 17 24  4
+10 16 15  9 19
+18  8 23 26 20
+22 11 13  6  5
+ 2  0 12  3  7"
+    }
 
     #[tokio::test]
     async fn solution_1() {
-        let input = load("4", "", false, None).await.unwrap();
         let handler = Day4Handler::new();
-        let solution = handler.solve("1", &input).unwrap();
-        assert!(solution == String::from("10374"));
+        let solution = handler.solve("1", get_input()).unwrap();
+        assert!(solution == String::from("4512"), "Returned: {}, expected: {}", solution, "4512");
     }
 
     #[tokio::test]
     async fn solution_2() {
-        let input = load("4", "", false, None).await.unwrap();
         let handler = Day4Handler::new();
-        let solution = handler.solve("2", &input).unwrap();
-        assert!(solution == String::from("24742"));
+        let solution = handler.solve("2", get_input()).unwrap();
+        assert!(solution == String::from("1924"), "Returned: {}, expected: {}", solution, "1924");
     }
 }

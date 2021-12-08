@@ -100,8 +100,21 @@ impl<'a> AdventSolution<&str> for Day8Handler {
 
 #[cfg(test)]
 mod tests {
-    use crate::{load_input::load, handler::AdventSolution};
+    use crate::handler::AdventSolution;
     use super::Day8Handler;
+
+    fn get_input<'a>() -> &'a str {
+        "be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe
+        edbfga begcd cbg gc gcadebf fbgde acbgfd abcde gfcbed gfec | fcgedb cgb dgebacf gc
+        fgaebd cg bdaec gdafb agbcfd gdcbef bgcad gfac gcb cdgabef | cg cg fdcagb cbg
+        fbegcd cbd adcefb dageb afcb bc aefdc ecdab fgdeca fcdbega | efabcd cedba gadfec cb
+        aecbfdg fbg gf bafeg dbefa fcge gcbea fcaegb dgceab fcbdga | gecf egdcabf bgf bfgea
+        fgeab ca afcebg bdacfeg cfaedg gcfdb baec bfadeg bafgc acf | gebdcfa ecba ca fadegcb
+        dbcfg fgd bdegcaf fgec aegbdf ecdfab fbedc dacgb gdcebf gf | cefg dcbef fcge gbcadfe
+        bdfegc cbegaf gecbf dfcage bdacg ed bedf ced adcbefg gebcd | ed bcgafe cdgba cbgef
+        egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb
+        gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce"
+    }
 
     #[test]
     fn get_day() {
@@ -109,23 +122,20 @@ mod tests {
         assert!(&handler.get_day() == "8");
     }
 
-    async fn solution(day: &str, sol: &str) -> String {
-        let input = load(day, "", false, None).await.unwrap();
+    async fn solution(sol: &str) -> String {
         let handler = Day8Handler::new();
-        let solution = handler.solve(sol, &input).unwrap();
-
-        solution
+        handler.solve(sol, get_input()).unwrap()
     }
 
     #[tokio::test]
     async fn solution_1() {
-        let solution = solution("8", "1").await;
-        assert!(solution == String::from("321"));
+        let solution = solution("1").await;
+        assert!(solution == String::from("26"));
     }
 
     #[tokio::test]
     async fn solution_2() {
-        let solution = solution("8", "2").await;
-        assert!(solution == String::from("1028926"));
+        let solution = solution("2").await;
+        assert!(solution == String::from("61229"));
     }
 }

@@ -162,22 +162,35 @@ impl<'a> AdventSolution<&str> for Day5Handler {
 
 #[cfg(test)]
 mod tests {
-    use crate::{load_input::load, handler::AdventSolution};
+    use crate::handler::AdventSolution;
     use super::Day5Handler;
+
+    fn get_input<'a>() -> &'a str {
+"0,9 -> 5,9
+8,0 -> 0,8
+9,4 -> 3,4
+2,2 -> 2,1
+7,0 -> 7,4
+6,4 -> 2,0
+0,9 -> 2,9
+3,4 -> 1,4
+0,0 -> 8,8
+5,5 -> 8,2"
+    }
 
     #[tokio::test]
     async fn solution_1() {
-        let input = load("5", "", false, None).await.unwrap();
         let handler = Day5Handler::new();
-        let solution = handler.solve("1", &input).unwrap();
-        assert!(solution == String::from("5197"));
+        let solution = handler.solve("1", get_input()).unwrap();
+        println!("soln1: {}", solution);
+        assert!(solution == String::from("5"));
     }
 
     #[tokio::test]
     async fn solution_2() {
-        let input = load("5", "", false, None).await.unwrap();
         let handler = Day5Handler::new();
-        let solution = handler.solve("2", &input).unwrap();
-        assert!(solution == String::from("18605"));
+        let solution = handler.solve("2", get_input()).unwrap();
+        println!("soln2: {}", solution);
+        assert!(solution == String::from("12"));
     }
 }

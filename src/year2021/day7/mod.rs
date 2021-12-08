@@ -60,8 +60,12 @@ impl<'a> AdventSolution<&str> for Day7Handler {
 
 #[cfg(test)]
 mod tests {
-    use crate::{load_input::load, handler::AdventSolution};
+    use crate::handler::AdventSolution;
     use super::Day7Handler;
+
+    fn get_input<'a>() -> &'a str {
+        "16,1,2,0,4,2,7,1,2,14"
+    }
 
     #[test]
     fn get_day() {
@@ -69,23 +73,20 @@ mod tests {
         assert!(&handler.get_day() == "7");
     }
 
-    async fn solution(day: &str, sol: &str) -> String {
-        let input = load(day, "", false, None).await.unwrap();
+    async fn solution(sol: &str) -> String {
         let handler = Day7Handler::new();
-        let solution = handler.solve(sol, &input).unwrap();
-
-        solution
+        handler.solve(sol, get_input()).unwrap()
     }
 
     #[tokio::test]
     async fn solution_1() {
-        let solution = solution("7", "1").await;
-        assert!(solution == String::from("326132"));
+        let solution = solution("1").await;
+        assert!(solution == String::from("37"));
     }
 
     #[tokio::test]
     async fn solution_2() {
-        let solution = solution("7", "2").await;
-        assert!(solution == String::from("88612508"));
+        let solution = solution("2").await;
+        assert!(solution == String::from("168"));
     }
 }

@@ -103,22 +103,24 @@ impl<'a> AdventSolution<&str> for Day6Handler {
 
 #[cfg(test)]
 mod tests {
-    use crate::{load_input::load, handler::AdventSolution};
+    use crate::handler::AdventSolution;
     use super::Day6Handler;
+
+    fn get_input<'a>() -> &'a str {
+        "3,4,3,1,2"
+    }
 
     #[tokio::test]
     async fn solution_1() {
-        let input = load("6", "", false, None).await.unwrap();
         let handler = Day6Handler::new();
-        let solution = handler.solve("1", &input).unwrap();
-        assert!(solution == String::from("374927"));
+        let solution = handler.solve("1", get_input()).unwrap();
+        assert!(solution == String::from("5934"));
     }
 
     #[tokio::test]
     async fn solution_2() {
-        let input = load("6", "", false, None).await.unwrap();
         let handler = Day6Handler::new();
-        let solution = handler.solve("2", &input).unwrap();
-        assert!(solution == String::from("1687617803407"));
+        let solution = handler.solve("2", get_input()).unwrap();
+        assert!(solution == String::from("26984457539"));
     }
 }
