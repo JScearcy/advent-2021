@@ -9,6 +9,8 @@ mod day8;
 mod day9;
 mod day10;
 mod day11;
+mod day12;
+mod day13;
 
 pub mod prelude {
   pub use super::day1::Day1Handler;
@@ -22,5 +24,7 @@ pub mod prelude {
   pub use super::day9::Day9Handler;
   pub use super::day10::Day10Handler;
   pub use super::day11::Day11Handler;
+  pub use super::day12::Day12Handler;
+  pub use super::day13::Day13Handler;
   // all day handlers
 }
