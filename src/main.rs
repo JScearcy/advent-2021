@@ -1,18 +1,20 @@
+#![feature(iter_array_chunks)]
+extern crate pest_derive;
 mod cli;
 mod generate;
 mod handler;
 mod load_input;
-mod year2021;
+mod year2023;
 
 use handler::SolutionHandler;
-use year2021::prelude::*;
+use year2023::prelude::*;
 
 
 #[tokio::main]
 async fn main() {
     let matches = cli::init();
     let day = matches.value_of("day").unwrap();
-    let year = matches.value_of("year").unwrap_or("2021");
+    let year = matches.value_of("year").unwrap_or("2023");
     if matches.is_present("generate") {
         match generate::generate_day(day, year) {
             Ok(()) => {},
@@ -29,17 +31,6 @@ async fn main() {
     let handlers = vec![
         Day1Handler::new(),
         Day2Handler::new(),
-        Day3Handler::new(),
-        Day4Handler::new(),
-        Day5Handler::new(),
-        Day6Handler::new(),
-        Day7Handler::new(),
-        Day8Handler::new(),
-        Day9Handler::new(),
-        Day10Handler::new(),
-        Day11Handler::new(),
-        Day12Handler::new(),
-        Day13Handler::new(),
     ];
     
     solution_handler.register(handlers);

@@ -1,0 +1,22 @@
+command_indicator = _{ "$" }
+cd_command_data = { (ASCII_ALPHANUMERIC | "/" | "..")+ }
+cd_command = { command_indicator ~ "cd" ~ cd_command_data }
+ls_command = { command_indicator ~ "ls" ~ (NEWLINE ~ ls_command_output)+ }
+ls_command_dir_output = { "dir" ~ ASCII_ALPHANUMERIC+ }
+ls_command_file_output = { (ASCII_DIGIT ~ ("." | ASCII_ALPHANUMERIC)+) }
+ls_command_output = { ls_command_dir_output | ls_command_file_output }
+
+command_line = { cd_command | ls_command }
+command_file = { SOI ~ (command_line ~ NEWLINE)* ~ EOI }
+
+ls_dir_indicator = _{ "dir" }
+ls_dir_data = { ASCII_ALPHANUMERIC+ }
+ls_dir = { ls_dir_indicator ~ ls_dir_data }
+
+ls_file_size = { ASCII_DIGIT+ }
+ls_file_name = { (ASCII_ALPHANUMERIC | ".")+ }
+ls_file = { ls_file_size ~ ls_file_name }
+
+fs_object = { ls_dir | ls_file }
+
+WHITESPACE = _{ " " }

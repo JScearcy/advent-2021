@@ -9,6 +9,8 @@ dependencies = [
  "chrono",
  "clap",
  "ndarray",
+ "pest",
+ "pest_derive",
  "reqwest",
  "tera",
  "tokio",

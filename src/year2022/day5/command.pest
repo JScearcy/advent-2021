@@ -1,0 +1,5 @@
+amount = { ASCII_DIGIT+ }
+from = { ASCII_DIGIT+ }
+to = { ASCII_DIGIT+ }
+command = { "move" ~ amount ~ "from" ~ from ~ "to" ~ to}
+WHITESPACE = _{ " " }
