@@ -75,7 +75,7 @@ impl<'a> Day4Handler {
             for winning_num in winning.numbers {
                 if current.numbers.contains(&winning_num) {
                     card_matches += 1;
-                    carry[card_matches] += 1 * carry[card_idx];
+                    carry[card_matches] += carry[card_idx];
                 }
             }
         }
