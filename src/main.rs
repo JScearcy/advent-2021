@@ -31,6 +31,7 @@ async fn main() {
     let handlers = vec![
         Day1Handler::new(),
         Day2Handler::new(),
+        Day3Handler::new(),
     ];
     
     solution_handler.register(handlers);
