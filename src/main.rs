@@ -33,6 +33,8 @@ async fn main() {
         Day2Handler::new(),
         Day3Handler::new(),
         Day4Handler::new(),
+        Day5Handler::new(),
+        Day6Handler::new(),
     ];
     
     solution_handler.register(handlers);

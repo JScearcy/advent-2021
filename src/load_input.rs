@@ -43,7 +43,7 @@ pub async fn load_local(path: &PathBuf) -> Result<String, LoadError> {
 }
 
 async fn load_remote(day_num: &str, path: &PathBuf, session: &str) -> Result<String, LoadError> {
-    let url = format!("https://adventofcode.com/2021/day/{}/input", day_num);
+    let url = format!("https://adventofcode.com/2023/day/{}/input", day_num);
     let client = reqwest::Client::new();
     let request = client.get(url).header("Cookie", session).build()?;
     let response = client.execute(request).await
